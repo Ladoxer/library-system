@@ -1,73 +1,179 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Library System API
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Library System API is a robust backend system built with NestJS and MongoDB for managing a library's books and authors. It provides CRUD operations for books and authors, along with additional features like searching for books by author and publishing date range. The API is documented using Swagger and includes comprehensive unit tests.
 
-## Installation
+## Table of Contents
 
-```bash
-$ npm install
+- [Library System API](#library-system-api)
+  - [Description](#description)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Running the Application](#running-the-application)
+  - [API Documentation](#api-documentation)
+  - [Project Structure](#project-structure)
+  - [Testing](#testing)
+  - [Technologies Used](#technologies-used)
+  - [Author](#author)
+  - [License](#license)
+
+## Features
+
+- **CRUD Operations**: Create, Read, Update, and Delete books and authors.
+- **Advanced Queries**: Retrieve books by author and within specified date ranges.
+- **Swagger Documentation**: Interactive API documentation available at `/api` endpoint.
+- **Jest Tests**: Unit tests ensure reliability and maintainability of code.
+
+## Getting Started
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Node.js (>= 14.x)
+- npm (>= 6.x) or yarn (>= 1.22.x)
+- MongoDB (local or remote instance)
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Ladoxer/library-system.git
+   cd library-system
+   ```
+
+2. **Install dependencies**
+
+   Using npm:
+
+   ```bash
+   npm install
+   ```
+
+   Or using yarn:
+
+   ```bash
+   yarn install
+   ```
+
+3. **Set up environment variables**
+
+   Create a `.env` file in the root of the project and add the following variables:
+
+   ```plaintext
+   MONGODB_URI=mongodb://localhost:27017/library
+   ```
+
+### Running the Application
+
+1. **Start MongoDB**
+
+   Ensure your MongoDB instance is running. If using a local instance, start it with:
+
+   ```bash
+   mongod
+   ```
+
+2. **Run the application**
+
+   Using npm:
+
+   ```bash
+   npm run start:dev
+   ```
+
+   Or using yarn:
+
+   ```bash
+   yarn start:dev
+   ```
+
+   The application should now be running on http://localhost:3000.
+
+## API Documentation
+
+The API documentation is available at http://localhost:3000/api when the application is running. It provides detailed information on all available endpoints, request parameters, and responses.
+
+## Project Structure
+
+The project follows a structured approach with modules for books and authors, each containing controllers, services, DTOs, entities, and schemas.
+
+```plaintext
+src/
+├── app.controller.ts
+├── app.module.ts
+├── app.service.ts
+├── authors/
+│   ├── authors.controller.ts
+│   ├── authors.module.ts
+│   ├── authors.service.ts
+│   ├── dto/
+│   │   ├── author.dto.ts
+│   ├── entities/
+│   │   ├── author.entity.ts
+│   ├── schemas/
+│   │   ├── author.schema.ts
+├── books/
+│   ├── books.controller.ts
+│   ├── books.module.ts
+│   ├── books.service.ts
+│   ├── dto/
+│   │   ├── book.dto.ts
+│   ├── entities/
+│   │   ├── book.entity.ts
+│   ├── schemas/
+│   │   ├── book.schema.ts
+├── main.ts
 ```
 
-## Running the app
+## Testing
 
-```bash
-# development
-$ npm run start
+Unit tests are written using Jest. To run the tests, use the following commands:
 
-# watch mode
-$ npm run start:dev
+- Run all tests:
 
-# production mode
-$ npm run start:prod
-```
+  ```bash
+  npm run test
+  ```
 
-## Test
+  or
 
-```bash
-# unit tests
-$ npm run test
+  ```bash
+  yarn test
+  ```
 
-# e2e tests
-$ npm run test:e2e
+- Run tests in watch mode:
 
-# test coverage
-$ npm run test:cov
-```
+  ```bash
+  npm run test:watch
+  ```
 
-## Support
+  or
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+  ```bash
+  yarn test:watch
+  ```
 
-## Stay in touch
+## Technologies Used
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **Framework**: NestJS
+- **Database**: MongoDB
+- **ODM**: Mongoose
+- **Documentation**: Swagger
+- **Testing**: Jest
 
-## License
+## Author
 
-Nest is [MIT licensed](LICENSE).
+Muhammed Labeeb U
+- Email: muhammedlabeebu@example.com
+
+
+### Additional Tips
+
+- **Update `.env.example`**: Provide an example environment file (`env.example`) with placeholders for users to set up their environment variables.
+
