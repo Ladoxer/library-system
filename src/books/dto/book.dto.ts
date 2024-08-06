@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { Transform } from "class-transformer";
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MaxDate } from "class-validator";
 
 export class CreateBookDto {
   @ApiProperty({example: 'Book Name'})
@@ -19,7 +20,9 @@ export class CreateBookDto {
 
   @ApiProperty({example: '1990-01-01'})
   @IsNotEmpty()
+  @Transform(({ value }) => new Date(value))
   @IsDate()
+  @MaxDate(new Date())
   readonly publishedDate: Date;
 }
 
@@ -41,28 +44,32 @@ export class UpdateBookDto {
 
   @ApiProperty({example: '1990-01-01', required: false})
   @IsOptional()
+  @Transform(({ value }) => value && new Date(value))
   @IsDate()
+  @MaxDate(new Date())
   readonly publishedDate?: Date;
 }
 
 export class FindBookDto {
-  @ApiProperty({example: 1, required: false})
+  @ApiProperty({ example: 1, required: false })
+  @IsNotEmpty()
   @IsOptional()
-  @IsNumber()
   readonly page?: number;
 
-  @ApiProperty({example: 10, required: false})
+  @ApiProperty({ example: 10, required: false })
+  @IsNotEmpty()
   @IsOptional()
-  @IsNumber()
   readonly limit?: number;
 
-  @ApiProperty({example: 'publishedDate', required: false})
+  @ApiProperty({ example: 'publishedDate', required: false })
+  @IsNotEmpty()
   @IsOptional()
   @IsString()
   readonly sortBy?: string;
 
-  @ApiProperty({example: 'desc', required: false})
+  @ApiProperty({ example: 'desc', required: false })
+  @IsNotEmpty()
   @IsOptional()
-  @IsEnum(['asc', 'desc'])
+  @IsEnum(['asc', 'desc'], { message: 'sortOrder must be one of the following values: asc, desc' })
   readonly sortOrder?: 'asc' | 'desc';
 }
