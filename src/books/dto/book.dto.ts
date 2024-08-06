@@ -19,8 +19,8 @@ export class CreateBookDto {
 
   @ApiProperty({example: '1990-01-01'})
   @IsNotEmpty()
-  @IsDate()
-  readonly publishedDate: Date;
+  @IsString()
+  readonly publishedDate: String;
 }
 
 export class UpdateBookDto {
@@ -41,28 +41,30 @@ export class UpdateBookDto {
 
   @ApiProperty({example: '1990-01-01', required: false})
   @IsOptional()
-  @IsDate()
-  readonly publishedDate?: Date;
+  @IsString()
+  readonly publishedDate?: String;
 }
 
 export class FindBookDto {
-  @ApiProperty({example: 1, required: false})
+  @ApiProperty({ example: 1, required: false })
+  @IsNotEmpty()
   @IsOptional()
-  @IsNumber()
   readonly page?: number;
 
-  @ApiProperty({example: 10, required: false})
+  @ApiProperty({ example: 10, required: false })
+  @IsNotEmpty()
   @IsOptional()
-  @IsNumber()
   readonly limit?: number;
 
-  @ApiProperty({example: 'publishedDate', required: false})
+  @ApiProperty({ example: 'publishedDate', required: false })
+  @IsNotEmpty()
   @IsOptional()
   @IsString()
   readonly sortBy?: string;
 
-  @ApiProperty({example: 'desc', required: false})
+  @ApiProperty({ example: 'desc', required: false })
+  @IsNotEmpty()
   @IsOptional()
-  @IsEnum(['asc', 'desc'])
+  @IsEnum(['asc', 'desc'], { message: 'sortOrder must be one of the following values: asc, desc' })
   readonly sortOrder?: 'asc' | 'desc';
 }
