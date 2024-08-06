@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { Transform } from "class-transformer";
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MaxDate } from "class-validator";
 
 export class CreateBookDto {
   @ApiProperty({example: 'Book Name'})
@@ -19,8 +20,10 @@ export class CreateBookDto {
 
   @ApiProperty({example: '1990-01-01'})
   @IsNotEmpty()
-  @IsString()
-  readonly publishedDate: String;
+  @Transform(({ value }) => new Date(value))
+  @IsDate()
+  @MaxDate(new Date())
+  readonly publishedDate: Date;
 }
 
 export class UpdateBookDto {
@@ -41,8 +44,10 @@ export class UpdateBookDto {
 
   @ApiProperty({example: '1990-01-01', required: false})
   @IsOptional()
-  @IsString()
-  readonly publishedDate?: String;
+  @Transform(({ value }) => value && new Date(value))
+  @IsDate()
+  @MaxDate(new Date())
+  readonly publishedDate?: Date;
 }
 
 export class FindBookDto {
