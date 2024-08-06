@@ -14,7 +14,7 @@ export class Book extends Document {
   authorId: Types.ObjectId;
 
   @Prop({ required: true })
-  publishedDate: Date;
+  publishedDate: String;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);
